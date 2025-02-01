@@ -1,3 +1,4 @@
+import os
 import time
 import re
 import pandas as pd
@@ -5,6 +6,16 @@ from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
+
+# ============================================================
+# SETUP: Define output directory relative to this script
+# ============================================================
+# Get the absolute path of the directory this script is in.
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# Define the output directory (for example, one level up in a folder named "raw").
+OUTPUT_DIR = os.path.join(BASE_DIR, "..", "raw")
+# Create the output directory if it doesn't already exist.
+os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 def generate_months(start, end):
     """
@@ -205,9 +216,10 @@ if __name__ == "__main__":
     # To scrape data for the current month only (default):
     # df = scrape_nuforc_data()
     
-    # To scrape data for a range, for example from January 2023 to January 2025:
+    # For example, scrape from January 2023 to January 2025.
     df = scrape_nuforc_data(start_period="202301", end_period="202501", waiting_time=5, browser='chrome', headless=True)
     
-    # Save the scraped data to CSV
-    df.to_csv("../raw/nuforc_reports.csv", index=False)
+    # Build an absolute path for the output CSV file
+    output_csv = os.path.join(OUTPUT_DIR, "nuforc_reports.csv")
+    df.to_csv(output_csv, index=False)
     print("🛸 UFO data saved! (Watch out for black helicopters...)")

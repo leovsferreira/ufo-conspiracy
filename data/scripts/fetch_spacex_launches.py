@@ -1,5 +1,16 @@
 import requests
 import json
+import os
+
+# ============================================================
+# SETUP: Define output directory relative to this script
+# ============================================================
+# Get the absolute path of the directory this script is in.
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# Define the output directory (for example, one level up in a folder named "raw").
+OUTPUT_DIR = os.path.join(BASE_DIR, "..", "raw")
+# Create the output directory if it doesn't already exist.
+os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 def fetch_spacex_launches():
     # URL endpoint for SpaceX launches (v4 of the API)
@@ -31,12 +42,56 @@ def fetch_spacex_launches():
             "details": launch["details"]
         })
     
-    # Save the cleaned list of launches to a JSON file.
-    # Make sure the folder "../data/raw/" exists, otherwise you'll get an error.
-    with open("../raw/spacex_launches.json", "w") as f:
+    # Build the absolute path to the output JSON file
+    output_file = os.path.join(OUTPUT_DIR, "spacex_launches.json")
+    with open(output_file, "w") as f:
         json.dump(clean_launches, f)
     
-    print("🚀 SpaceX launches captured! (Elon, if you're reading this, we come in peace.)")
+    print("🚀 SpaceX launches captured!")
+
+def fetch_spacex_launchpads():
+    # URL endpoint for SpaceX launches (v4 of the API)
+    url = "https://api.spacexdata.com/v4/launchpads"
+    
+    # Send a GET request to fetch the launchpads data
+    response = requests.get(url)
+    
+    # Parse the response as JSON (a list of launch dictionaries)
+    launchpads = response.json()
+    
+    # Create an empty list to store our cleaned-up launch data
+    clean_launchpads = []
+    
+    # Loop over each launchpad in the data
+    for launchpad in launchpads:
+        # For each launch, extract only the key fields we're interested in.
+        # These fields are:
+        #   - name: location abbreviation
+        #   - full_name: location full name
+        #   - locality: location short name
+        #   - region: state
+        #   - timezone: location timezone
+        #   - rockets: list of rockets
+        #   - launches: list of launches in the current location
+        #   - id: launchpad id
+        clean_launchpads.append({
+            "name": launchpad["name"],
+            "full_name": launchpad["full_name"],
+            "locality": launchpad["locality"],
+            "region": launchpad["region"],
+            "timezone": launchpad["timezone"],
+            "rockets_list": launchpad["rockets"],
+            "launches_list": launchpad["launches"],
+            "id": launchpad["id"]
+        })
+    
+    # Build the absolute path to the output JSON file
+    output_file = os.path.join(OUTPUT_DIR, "spacex_launchpads.json")
+    with open(output_file, "w") as f:
+        json.dump(clean_launchpads, f)
+    
+    print("🚀 SpaceX launchpads captured! (Elon, if you're reading this, we come in peace.)")
 
 if __name__ == "__main__":
     fetch_spacex_launches()
+    fetch_spacex_launchpads()

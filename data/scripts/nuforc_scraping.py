@@ -120,12 +120,11 @@ def scrape_month(driver, scraping_month, waiting_time=5):
                 if len(cols) >= 5:
                     scraped_rows.append({
                         "datetime": cols[1].text.strip(),
-                        "city": cols[1].text.strip(),
-                        "state": cols[2].text.strip(),
-                        "country": cols[3].text.strip(),
-                        "shape": cols[4].text.strip(),
-                        "summary": cols[5].text.strip(),
-                        "report_date": cols[6].text.strip()
+                        "city": cols[2].text.strip(),
+                        "state": cols[3].text.strip(),
+                        "country": cols[4].text.strip(),
+                        "shape": cols[5].text.strip(),
+                        "summary": cols[6].text.strip(),
                     })
             print(f"Month {scraping_month}: Scraped {len(scraped_rows)} of {total_records} records so far...")
         else:

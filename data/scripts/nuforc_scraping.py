@@ -216,8 +216,8 @@ if __name__ == "__main__":
     # To scrape data for the current month only (default):
     # df = scrape_nuforc_data()
     
-    # For example, scrape from January 2023 to January 2025.
-    df = scrape_nuforc_data(start_period="202301", end_period="202501", waiting_time=5, browser='chrome', headless=True)
+    # For example, scrape from January 1950 to January 2025.
+    df = scrape_nuforc_data(start_period="195001", end_period="202501", waiting_time=5, browser='chrome', headless=True)
     
     # Build an absolute path for the output CSV file
     output_csv = os.path.join(OUTPUT_DIR, "nuforc_reports.csv")

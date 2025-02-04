@@ -42,10 +42,10 @@ def fetch_spacex_launches():
             "details": launch["details"]
         })
     
-    # Build the absolute path to the output JSON file
+    # Build the absolute path to the output JSON file and save (no spaces, no identation)
     output_file = os.path.join(OUTPUT_DIR, "spacex_launches.json")
     with open(output_file, "w") as f:
-        json.dump(clean_launches, f)
+        json.dump(clean_launches, f, separators=(',', ':'))
     
     print("🚀 SpaceX launches captured!")
 
@@ -85,10 +85,10 @@ def fetch_spacex_launchpads():
             "id": launchpad["id"]
         })
     
-    # Build the absolute path to the output JSON file
+    # Build the absolute path to the output JSON file and save (no spaces, no identation)
     output_file = os.path.join(OUTPUT_DIR, "spacex_launchpads.json")
     with open(output_file, "w") as f:
-        json.dump(clean_launchpads, f)
+        json.dump(clean_launchpads, f, separators=(',', ':'))
     
     print("🚀 SpaceX launchpads captured! (Elon, if you're reading this, we come in peace.)")
 

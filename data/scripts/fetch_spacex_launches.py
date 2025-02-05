@@ -13,6 +13,18 @@ OUTPUT_DIR = os.path.join(BASE_DIR, "..", "raw")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 def fetch_spacex_launches():
+    """
+    Fetches SpaceX launch data from the SpaceX API (v4) and saves it as a cleaned JSON file.
+
+    Process:
+        - Sends a GET request to the SpaceX API to retrieve all launches.
+        - Extracts key fields from each launch, including date, launchpad ID, rocket ID,
+          success status, and details.
+        - Saves the cleaned data to a JSON file in the specified output directory.
+
+    Output:
+        - A JSON file named `spacex_launches.json` containing the cleaned launch data.
+    """
     # URL endpoint for SpaceX launches (v4 of the API)
     url = "https://api.spacexdata.com/v4/launches"
     
@@ -50,6 +62,18 @@ def fetch_spacex_launches():
     print("🚀 SpaceX launches captured!")
 
 def fetch_spacex_launchpads():
+    """
+    Fetches SpaceX launchpad data from the SpaceX API (v4) and saves it as a cleaned JSON file.
+
+    Process:
+        - Sends a GET request to the SpaceX API to retrieve all launchpads.
+        - Extracts key fields from each launchpad, including name, full name, locality,
+          region, timezone, rockets list, launches list, and ID.
+        - Saves the cleaned data to a JSON file in the specified output directory.
+
+    Output:
+        - A JSON file named `spacex_launchpads.json` containing the cleaned launchpad data.
+    """
     # URL endpoint for SpaceX launches (v4 of the API)
     url = "https://api.spacexdata.com/v4/launchpads"
     

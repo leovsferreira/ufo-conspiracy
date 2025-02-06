@@ -4,3 +4,15 @@ requests
 datetime
 selenium
 geopy
+ipykernel
+nbformat
+jupyter
+anywidget
+kaleido
+geo==1.0.0
+matplotlib
+shapely
+geodatasets
+geopandas
+cartopy
+scipy

@@ -9,6 +9,7 @@ nbformat
 jupyter
 anywidget
 kaleido
+plotly-resampler
 geo==1.0.0
 matplotlib
 shapely

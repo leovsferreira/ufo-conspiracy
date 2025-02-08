@@ -42,7 +42,7 @@ def save_data(file_path, offset, results):
         "offset": offset,
         "results": results
     }
-    # Use compact separators
+    # No spaces, no identation
     with open(file_path, "w") as f:
         json.dump(data, f, separators=(',', ':'))
 
